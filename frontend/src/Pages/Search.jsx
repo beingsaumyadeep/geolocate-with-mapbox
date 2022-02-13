@@ -1,7 +1,7 @@
 import React, { useState, useRef, useCallback } from "react";
 import "mapbox-gl/dist/mapbox-gl.css";
 import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css";
-import MapGL from "react-map-gl";
+import MapGL, { Marker } from "react-map-gl";
 import Geocoder from "react-map-gl-geocoder";
 import { Helmet } from "react-helmet-async";
 import Box from "@mui/material/Box";
@@ -129,6 +129,19 @@ export default function Search() {
                 mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_KEY}
                 position="top-left"
               />
+              {lists.map((dt) => (
+                <Marker
+                  longitude={dt.coordinates[0]}
+                  latitude={dt.coordinates[1]}
+                  anchor="bottom"
+                >
+                  <img
+                    src="/Assets/images/drop-pin.png"
+                    alt=""
+                    style={{ maxHeight: 20 }}
+                  />
+                </Marker>
+              ))}
             </MapGL>
           </Box>
         </Box>

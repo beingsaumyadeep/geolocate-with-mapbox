@@ -23,8 +23,6 @@ export default function MapContainer({ locations, sx }) {
     //eslint-disable-next-line
   }, []);
 
-
-
   useEffect(() => {
     if (!map.current) return;
     map.current.on("load", function () {
@@ -36,7 +34,16 @@ export default function MapContainer({ locations, sx }) {
           type: "geojson",
           data: {
             type: "FeatureCollection",
-            features: locations,
+            features: [
+              ...locations,
+              {
+                type: "Feature",
+                geometry: {
+                  type: "Point",
+                  coordinates: [-75.4652471468304, 42.751210955],
+                },
+              },
+            ],
           },
         });
         map.current.addLayer({
@@ -53,6 +60,18 @@ export default function MapContainer({ locations, sx }) {
     });
     //eslint-disable-next-line
   }, []);
+
+  useEffect(() => {
+    if (!map.current) return;
+    map.current.on("load", function () {
+      map.current.setData({
+        type: "FeatureCollection",
+        features: locations,
+      });
+    });
+    //eslint-disable-next-line
+  }, [locations]);
+
   return (
     <>
       <Box ref={mapContainer} sx={sx} className="map-container"></Box>

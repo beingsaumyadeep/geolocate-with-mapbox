@@ -38,7 +38,7 @@ export default function MyPlaces() {
   // const map = useRef(null);
   // const [lng] = useState(78.9629);
   // const [lat] = useState(20.5937);
-  // const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setLocations(
@@ -55,9 +55,9 @@ export default function MyPlaces() {
         };
       })
     );
-    // setTimeout(() => {
-    //   setLoading(false);
-    // }, 1000);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
     //eslint-disable-next-line
   }, [items]);
 
@@ -133,10 +133,14 @@ export default function MyPlaces() {
             </Box>
           ))}
         </Box>
-        <MapContainer
-          locations={locations}
-          sx={{ flex: 1, background: "#000", padding: 0, width: "100%" }}
-        />
+        {!loading ? (
+          <MapContainer
+            locations={locations}
+            sx={{ flex: 1, background: "#000", padding: 0, width: "100%" }}
+          />
+        ) : (
+          ""
+        )}
         {/* <Box
           pt={10}
           px={5}
